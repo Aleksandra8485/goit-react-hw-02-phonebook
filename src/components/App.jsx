@@ -5,6 +5,7 @@ function App() {
   const [state, setState] = useState({
     contacts: [],
     name: '',
+    number: '',
   });
 
   const addContact = newContact => {
@@ -14,16 +15,29 @@ function App() {
     });
   };
 
+  const handleNumberChange = event => {
+    setState({
+      ...state,
+      number: event.target.value,
+    });
+  };
+
   return (
     <div>
       <h1>Phonebook</h1>
-      <ContactForm addContact={addContact} />
+      <ContactForm
+        addContact={addContact}
+        number={state.number}
+        handleNumberChange={handleNumberChange}
+      />
 
       <div>
         <h2>Contacts</h2>
         <ul>
           {state.contacts.map(contact => (
-            <li key={contact.id}>{contact.name}</li>
+            <li key={contact.id}>
+              {contact.name} - {contact.number}
+            </li>
           ))}
         </ul>
       </div>
