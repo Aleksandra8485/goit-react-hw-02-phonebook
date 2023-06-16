@@ -3,6 +3,7 @@ import { nanoid } from 'nanoid';
 import ContactForm from './ContactForm/ContactForm';
 import Filter from './ContactForm/Filter';
 import ContactList from './ContactForm/ContactList';
+import styles from './App.module.css';
 
 const App = () => {
   const initialContacts = [
@@ -44,7 +45,7 @@ const App = () => {
   );
 
   return (
-    <div>
+    <div className={styles.appContainer}>
       <h1>Phonebook</h1>
       <ContactForm addContact={addContact} />
       <h2>Contacts</h2>
