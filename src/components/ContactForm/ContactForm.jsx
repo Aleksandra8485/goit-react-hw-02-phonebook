@@ -1,10 +1,6 @@
-import React, { useState } from 'react';
-import { nanoid } from 'nanoid';
+import React from 'react';
 
-function ContactForm(props) {
-  const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
-
+const ContactForm = ({ name, setName, number, setNumber, addContact }) => {
   const handleNameChange = event => {
     setName(event.target.value);
   };
@@ -15,46 +11,41 @@ function ContactForm(props) {
 
   const handleSubmit = event => {
     event.preventDefault();
-    if (name.trim() !== '' && number.trim() !== '') {
-      const newContact = {
-        id: nanoid(),
-        name: name,
-        number: number,
-      };
-      props.addContact(newContact);
-      setName('');
-      setNumber('');
-    }
+    addContact();
   };
 
   return (
     <form onSubmit={handleSubmit}>
       <label>
-        Name
+        Name:
         <input
           type="text"
+          name="name"
+          pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+          title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+          required
           value={name}
           onChange={handleNameChange}
-          pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-          title="Imię i nazwisko mogą zawierać tylko litery, apostrof, myślnik i spacje. Na przykład Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-          required
         />
       </label>
+      <br />
       <label>
-        Number
+        Number:
         <input
           type="tel"
+          name="number"
+          pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+          title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+          required
           value={number}
           onChange={handleNumberChange}
-          pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-          title="Numer telefonu musi składać się z cyfr i może zawierać spacje, myślniki, nawiasy i może zaczynać się od znaku plus."
-          required
         />
       </label>
-      <button type="submit">Add contact</button>
+      <br />
+      <button type="submit">Add Contact</button>
     </form>
   );
-}
+};
 
 export default ContactForm;
 
